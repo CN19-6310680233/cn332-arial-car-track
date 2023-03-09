@@ -4,6 +4,7 @@ import detect_and_track
 from utils.download_weights import download
 import torch
 from utils.general import strip_optimizer
+import os
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
