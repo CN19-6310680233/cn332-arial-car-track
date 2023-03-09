@@ -47,7 +47,7 @@ if __name__ == '__main__':
         print('Model weights not found. Attempting to download now...')
         download('./')
 
-    detectionObj = detect_and_track.DetectAndTrack
+    detectionObj = detect_and_track.DetectAndTrack(opt)
     with torch.no_grad():
         if opt.update:  # update all models (to fix SourceChangeWarning)
             for opt.weights in ['yolov7.pt']:

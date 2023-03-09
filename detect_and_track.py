@@ -23,6 +23,9 @@ import count_table
 
 class DetectAndTrack:
 
+    def __init__(self, _opt):
+        self.opt = _opt
+
     #3 point consecutive vect
     def check_clock_wise(self, p1, p2, p3):
         vec1  = (p2[0]-p1[0],p2[1]-p1[1])
@@ -40,7 +43,9 @@ class DetectAndTrack:
     #pickup
     #motorcycle
     #cnts = []
-    count_boxes = []
+    count_boxes = {
+        "loops": []
+    }
     loop_boxes = [] #loop statistics
     time_stamp = 0 # time in second
     save_dir = ""
@@ -328,7 +333,7 @@ class DetectAndTrack:
                         bbox_xyxy = tracked_dets[:,:4]
                         identities = tracked_dets[:, 8]
                         categories = tracked_dets[:, 4]
-                        draw_boxes(im0, bbox_xyxy, identities, categories, names)
+                        self.draw_boxes(im0, bbox_xyxy, identities, categories, names)
 
                     #........................................................
                     
@@ -350,7 +355,7 @@ class DetectAndTrack:
             #add counting table
             counttable.img = im0s
             
-            for lb in loop_boxes:
+            for lb in self.loop_boxes:
                 lb.draw(counttable)
             # cv2.rectangle(im0s,(500,400),(900,550),(0,0,0),cv2.FILLED)
             # cv2.putText(im0s,"        Straight    Left        Right", (500, 420),cv2.FONT_HERSHEY_SIMPLEX, 
