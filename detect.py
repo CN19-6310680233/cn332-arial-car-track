@@ -1,4 +1,6 @@
 import argparse
+import json
+from pathlib import Path
 import time
 import os
 from pathlib import Path
@@ -162,8 +164,21 @@ def detect(save_img=False):
 
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
-        #print(f"Results saved to {save_dir}{s}")
+        txt_files = save_dir.glob('labels/*.txt')
+        count = 0
+        numFile = 0
+        for txt_file in txt_files:
+            with txt_file.open('r') as f:
+                count += sum(1 for line in f)
+                numFile += 1
+        result = {'count': count / numFile}
 
+        json_path = txt_file.with_suffix('.json')
+        with json_path.open('w') as f:
+            json.dump(result, f)
+        #print(f"Results saved to {save_dir}{s}")
+        print(f'Total lines in {len(list(txt_files))} files: {count}')
+        
     print(f'Done. ({time.time() - t0:.3f}s)')
 
 
