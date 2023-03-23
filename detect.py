@@ -180,6 +180,7 @@ def detect(save_img=False):
                             save_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (w, h))
                     vid_writer.write(im0)
     print(f'Done. ({time.time() - t0:.3f}s)')
+    print("[result]")
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
         txt_files = save_dir.glob('labels/*.txt')
@@ -189,7 +190,8 @@ def detect(save_img=False):
             with txt_file.open('r') as f:
                 count += sum(1 for line in f)
                 numFile += 1
-        result = {'count': count / numFile}
+        # result = {'count': count / numFile}
+        result = f"'count': {count / numFile}"
         print(result)
         json_path = txt_file.with_suffix('.json')
         with json_path.open('w') as f:
