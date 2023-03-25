@@ -191,8 +191,13 @@ def detect(save_img=False):
                 count += sum(1 for line in f)
                 numFile += 1
         # result = {'count': count / numFile}
-        result = f"'count': {count / numFile}"
-        print(result)
+        result = {
+            "count": count / numFile
+        }
+        result_string = "{'count': '" + str(count / numFile) + "'}"
+        print(result_string)
+        # result = f"'count': {count / numFile}"
+        # print(result)
         json_path = txt_file.with_suffix('.json')
         with json_path.open('w') as f:
             json.dump(result, f)
